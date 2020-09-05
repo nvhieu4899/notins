@@ -1,0 +1,11 @@
+spring:
+  data:
+    cassandra:
+      keyspace-name: notins
+      schema-action: RECREATE
+      local-datacenter: datacenter1
+      contact-points: 127.0.0.1
+      port: 9042
+image:
+  upload:
+    directory: /NOTINS_IMAGE/
