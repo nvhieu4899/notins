@@ -20,16 +20,19 @@ public class ApplicationUser {
     @Id
     private UUID userId;
 
-
     @JsonIgnore
     private String password;
-    private String name;
+    private String username;
 
     private String email;
     private Date creationDate;
     private Date lastLogin;
     private Date dateOfBirth;
 
-
-
+    public ApplicationUser( String name, String email, Date lastLogin, Date dateOfBirth) {
+        this.username = name;
+        this.email = email;
+        this.lastLogin = lastLogin;
+        this.dateOfBirth = dateOfBirth;
+    }
 }

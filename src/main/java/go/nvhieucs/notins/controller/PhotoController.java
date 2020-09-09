@@ -1,6 +1,7 @@
 package go.nvhieucs.notins.controller;
 
 
+import go.nvhieucs.notins.awss3.AmazonClient;
 import go.nvhieucs.notins.model.Photo;
 import go.nvhieucs.notins.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,15 @@ public class PhotoController {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Autowired
+    private AmazonClient amazonClient;
+
     @PostMapping("photo")
     public List<Photo> uploadPhoto(@RequestPart("photos") MultipartFile[] multipartFile) throws IOException {
         List<Photo> photos = new ArrayList<>();
         for (MultipartFile file : multipartFile) {
-            file.transferTo(Path.of(IMG_DIR + file.getOriginalFilename()));
-            photos.add(photoRepository.save(new Photo(IMG_DIR + file.getOriginalFilename(),
+            String fileUrl = amazonClient.uploadFile(file);
+            photos.add(photoRepository.save(new Photo(fileUrl,
                     null, null, null, null)));
         }
         return photos;

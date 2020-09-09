@@ -2,10 +2,20 @@ spring:
   data:
     cassandra:
       keyspace-name: notins
-      schema-action: RECREATE
+      schema-action: RECREATE_DROP_UNUSED
       local-datacenter: datacenter1
-      contact-points: 127.0.0.1
+      contact-point: 127.0.0.1
       port: 9042
 image:
   upload:
     directory: /NOTINS_IMAGE/
+
+aws:
+  s3:
+    accessKey: hieudeptr
+    secretKey: hieudeptr
+    bucketName: notins
+    endpointUrl: http://localhost:4572
+    region: eu-west-1
+
+

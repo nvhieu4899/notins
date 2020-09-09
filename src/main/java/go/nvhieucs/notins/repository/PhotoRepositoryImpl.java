@@ -3,6 +3,7 @@ package go.nvhieucs.notins.repository;
 import go.nvhieucs.notins.model.Photo;
 import go.nvhieucs.notins.model.PhotoByUser;
 import go.nvhieucs.notins.model.PhotoByUserKey;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraBatchOperations;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
@@ -12,9 +13,18 @@ import org.springframework.data.cassandra.repository.support.SimpleCassandraRepo
 import java.util.UUID;
 
 public class PhotoRepositoryImpl extends SimpleCassandraRepository<Photo, UUID> implements PhotoRepository {
-    private final PhotoByUserRepository photoByUserRepository;
 
-    private final CassandraTemplate cassandraTemplate;
+
+    @Autowired
+    private PhotoByUserRepository photoByUserRepository;
+
+
+    @Autowired
+    private CassandraTemplate cassandraTemplate;
+
+    public PhotoRepositoryImpl(CassandraEntityInformation<Photo, UUID> metadata, CassandraOperations operations) {
+        super(metadata, operations);
+    }
 
     /**
      * Create a new {@link SimpleCassandraRepository} for the given {@link CassandraEntityInformation} and
@@ -27,11 +37,8 @@ public class PhotoRepositoryImpl extends SimpleCassandraRepository<Photo, UUID> 
      */
 
 
-    public PhotoRepositoryImpl(CassandraEntityInformation<Photo, UUID> metadata, CassandraOperations operations, PhotoByUserRepository photoByUserRepository, CassandraTemplate cassandraTemplate) {
-        super(metadata, operations);
-        this.photoByUserRepository = photoByUserRepository;
-        this.cassandraTemplate = cassandraTemplate;
-    }
+
+
 
     @Override
     public <S extends Photo> S insert(S entity) {

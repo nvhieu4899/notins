@@ -22,5 +22,4 @@ public class PhotoByUserKey implements Serializable {
     private Date creationDate;
     @PrimaryKeyColumn(ordinal = 1, ordering = Ordering.ASCENDING)
     private UUID photoId;
-
 }
