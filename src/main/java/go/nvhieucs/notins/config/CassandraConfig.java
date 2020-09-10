@@ -7,15 +7,20 @@ import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 @Configuration
-public class CassandraConfig  extends AbstractCassandraConfiguration {
+@EnableCassandraRepositories(basePackages = "go.nvhieucs.notins.model")
+public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Value("${spring.data.cassandra.keyspace-name}")
     private String keyspaceName;
 
     @Value("${spring.data.cassandra.contact-point}")
     private String contactPoint;
+
+    @Value("${spring.data.cassandra.port}")
+    private Integer port;
 
     @Override
     protected String getKeyspaceName() {
@@ -28,8 +33,13 @@ public class CassandraConfig  extends AbstractCassandraConfiguration {
     }
 
     @Override
+    public String[] getEntityBasePackages() {
+        return new String[]{"go.nvhieucs.notins.model"};
+    }
+
+    @Override
     protected int getPort() {
-        return 9042;
+        return port;
     }
 
     @Override
@@ -40,7 +50,7 @@ public class CassandraConfig  extends AbstractCassandraConfiguration {
 
     @Override
     public SchemaAction getSchemaAction() {
-        return SchemaAction.CREATE;
+        return SchemaAction.CREATE_IF_NOT_EXISTS;
     }
 
 }

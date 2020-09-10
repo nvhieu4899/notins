@@ -78,6 +78,6 @@ public class AmazonClient {
     }
 
     private String generateFilename(MultipartFile multipartFile) {
-        return Calendar.getInstance().getTime() + "-" + Objects.requireNonNull(multipartFile.getOriginalFilename()).replace(" ", "_");
+        return (Calendar.getInstance().getTime() + "-" + Objects.requireNonNull(multipartFile.getOriginalFilename())).replace(" ", "_");
     }
 }

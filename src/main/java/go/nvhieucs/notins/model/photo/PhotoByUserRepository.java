@@ -1,8 +1,6 @@
-package go.nvhieucs.notins.repository;
+package go.nvhieucs.notins.model.photo;
 
 
-import go.nvhieucs.notins.model.PhotoByUser;
-import go.nvhieucs.notins.model.PhotoByUserKey;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
 

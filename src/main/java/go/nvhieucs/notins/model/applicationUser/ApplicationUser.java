@@ -1,12 +1,14 @@
-package go.nvhieucs.notins.model;
+package go.nvhieucs.notins.model.applicationUser;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.cassandra.repository.AllowFiltering;
 
 import java.util.Date;
 import java.util.UUID;
@@ -14,6 +16,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @Table
+@NoArgsConstructor
 public class ApplicationUser {
 
     @PrimaryKey

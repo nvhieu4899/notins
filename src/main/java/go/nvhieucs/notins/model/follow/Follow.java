@@ -1,4 +1,4 @@
-package go.nvhieucs.notins.model;
+package go.nvhieucs.notins.model.follow;
 
 
 import lombok.AllArgsConstructor;

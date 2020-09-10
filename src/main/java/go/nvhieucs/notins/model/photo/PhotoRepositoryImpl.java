@@ -1,8 +1,5 @@
-package go.nvhieucs.notins.repository;
+package go.nvhieucs.notins.model.photo;
 
-import go.nvhieucs.notins.model.Photo;
-import go.nvhieucs.notins.model.PhotoByUser;
-import go.nvhieucs.notins.model.PhotoByUserKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraBatchOperations;
 import org.springframework.data.cassandra.core.CassandraOperations;
@@ -12,12 +9,14 @@ import org.springframework.data.cassandra.repository.support.SimpleCassandraRepo
 
 import java.util.UUID;
 
-public class PhotoRepositoryImpl extends SimpleCassandraRepository<Photo, UUID> implements PhotoRepository {
+/* TODO: fucking customize PhotoRepositoryImpl (not
 
+ */
+
+public class PhotoRepositoryImpl extends SimpleCassandraRepository<Photo, UUID> implements PhotoRepository {
 
     @Autowired
     private PhotoByUserRepository photoByUserRepository;
-
 
     @Autowired
     private CassandraTemplate cassandraTemplate;
@@ -35,9 +34,6 @@ public class PhotoRepositoryImpl extends SimpleCassandraRepository<Photo, UUID> 
      * @param photoByUserRepository
      * @param cassandraTemplate
      */
-
-
-
 
 
     @Override

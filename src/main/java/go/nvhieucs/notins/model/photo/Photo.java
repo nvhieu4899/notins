@@ -1,9 +1,10 @@
-package go.nvhieucs.notins.model;
+package go.nvhieucs.notins.model.photo;
 
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Table
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Photo {
     @Id
     @PrimaryKeyColumn
@@ -34,8 +36,9 @@ public class Photo {
 
     private Date creationDate;
 
-    public Photo(String photoPath, Double photoLat, Double photoLng, Double userLat, Double userLng) {
+    public Photo(String photoPath,UUID userId, Double photoLat, Double photoLng, Double userLat, Double userLng) {
         this.photoId = Uuids.timeBased();
+        this.userId = userId;
         this.photoPath = photoPath;
         this.photoLat = photoLat;
         this.photoLng = photoLng;

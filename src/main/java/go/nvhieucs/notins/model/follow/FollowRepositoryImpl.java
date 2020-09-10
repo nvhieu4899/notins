@@ -1,7 +1,5 @@
-package go.nvhieucs.notins.repository;
+package go.nvhieucs.notins.model.follow;
 
-import go.nvhieucs.notins.model.Follow;
-import go.nvhieucs.notins.model.FollowerByFollowing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraBatchOperations;
 import org.springframework.data.cassandra.core.CassandraOperations;
