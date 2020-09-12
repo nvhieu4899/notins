@@ -6,5 +6,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.util.UUID;
 
 @NoRepositoryBean
-public interface FollowRepository extends CassandraRepository<Follow, UUID> {
+public interface FollowRepository extends CassandraRepository<Follow, FollowKey> {
 }

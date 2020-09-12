@@ -1,25 +1,21 @@
 package go.nvhieucs.notins.model.follow;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.cassandra.core.cql.Ordering;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyClass;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
-import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.UUID;
 
-@Table
 @Data
+@PrimaryKeyClass
 @AllArgsConstructor
-public class Follow {
+public class FollowKey {
+    @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
+    private UUID followerId;
 
-    @PrimaryKey
-    private FollowKey key;
-
-    private String followerName;
-    private String followingName;
-
+    @PrimaryKeyColumn(ordinal = 0, ordering = Ordering.ASCENDING)
+    private UUID followingId;
 }

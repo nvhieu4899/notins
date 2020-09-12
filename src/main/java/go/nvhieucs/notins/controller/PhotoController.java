@@ -23,8 +23,6 @@ public class PhotoController {
     @Autowired
     private UserRepository userRepository;
 
-    @Value("${image.upload.directory}")
-    private String IMG_DIR;
 
     @Autowired
     private PhotoRepositoryImpl photoRepository;

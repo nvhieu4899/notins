@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.repository.support.SimpleCassandraRepo
 
 import java.util.UUID;
 
-public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, UUID> implements FollowRepository {
+public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, FollowKey> implements FollowRepository {
 
     /**
      * Create a new {@link SimpleCassandraRepository} for the given {@link CassandraEntityInformation} and
@@ -23,7 +23,7 @@ public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, UUID
     @Autowired
     private FollowerByFollowingRepository byFollowingRepository;
 
-    public FollowRepositoryImpl(CassandraEntityInformation<Follow, UUID> metadata, CassandraOperations operations) {
+    public FollowRepositoryImpl(CassandraEntityInformation<Follow, FollowKey> metadata, CassandraOperations operations) {
         super(metadata, operations);
     }
 
@@ -37,7 +37,8 @@ public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, UUID
     }
 
     private void insertByFollowing(Follow follow, final CassandraBatchOperations batchOperations) {
-        batchOperations.insert(new FollowerByFollowing(follow.getFollowingId(), follow.getFollowerId(), follow.getFollowerName(), follow.getFollowingName()));
+        batchOperations.insert(new FollowerByFollowing(new FollowerByFollowingKey(follow.getKey().getFollowingId(),
+                follow.getKey().getFollowerId()), follow.getFollowerName(), follow.getFollowingName()));
     }
 
     @Override
@@ -48,7 +49,7 @@ public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, UUID
     }
 
     private void deleteByFollowing(Follow follow, final CassandraBatchOperations batchOperations) {
-        batchOperations.delete(byFollowingRepository.findOneByFollowingIdAndFollowerId(follow.getFollowingId(), follow.getFollowerId()));
-
+        batchOperations.delete(byFollowingRepository.findById(new FollowerByFollowingKey(follow.getKey().getFollowingId(),
+                follow.getKey().getFollowerId())));
     }
 }

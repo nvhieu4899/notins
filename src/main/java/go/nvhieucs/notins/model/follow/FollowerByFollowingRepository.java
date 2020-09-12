@@ -8,6 +8,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface FollowerByFollowingRepository extends CassandraRepository<FollowerByFollowing, UUID> {
-    Optional<FollowerByFollowing> findOneByFollowingIdAndFollowerId(UUID following, UUID follower);
+public interface FollowerByFollowingRepository extends CassandraRepository<FollowerByFollowing, FollowerByFollowingKey> {
 }

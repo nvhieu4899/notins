@@ -1,25 +1,15 @@
 package go.nvhieucs.notins.config;
 
+
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
-import org.springframework.data.cassandra.config.CqlSessionFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
-import org.springframework.data.cassandra.config.SessionFactoryFactoryBean;
-import org.springframework.data.cassandra.core.CassandraOperations;
-import org.springframework.data.cassandra.core.CassandraTemplate;
-import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
-@Profile("dev")
-@Configuration
-@EnableCassandraRepositories(basePackages = "go.nvhieucs.notins.model")
-public class CassandraConfig extends AbstractCassandraConfiguration {
-
+public class CassandraProductionConfig extends AbstractCassandraConfiguration {
     @Value("${spring.data.cassandra.keyspace-name}")
     private String keyspaceName;
 
@@ -28,6 +18,12 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Value("${spring.data.cassandra.port}")
     private Integer port;
+
+    @Value("${spring.data.cassandra.username}")
+    private String username;
+
+    @Value("${spring.data.cassandra.password}")
+    private String password;
 
     @Override
     protected String getKeyspaceName() {
@@ -60,5 +56,10 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return SchemaAction.CREATE_IF_NOT_EXISTS;
     }
 
-
+    @Override
+    protected CqlSession getRequiredSession() {
+        return CqlSession.builder().withAuthCredentials(username, password)
+                .withCloudSecureConnectBundle(Paths.get("secure-connect-notinstagram.zip"))
+                .withKeyspace(keyspaceName).build();
+    }
 }

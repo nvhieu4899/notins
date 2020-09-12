@@ -15,9 +15,9 @@ public class FollowConfig {
     public FollowRepository followRepository(final CassandraTemplate cassandraTemplate) {
         final CassandraPersistentEntity<?> persistentEntity = cassandraTemplate.getConverter()
                 .getMappingContext().getRequiredPersistentEntity(Follow.class);
-        final CassandraEntityInformation<Follow, UUID> entityInformation
-                = new MappingCassandraEntityInformation<Follow, UUID>(
-                        (CassandraPersistentEntity<Follow>) persistentEntity, cassandraTemplate.getConverter());
+        final CassandraEntityInformation<Follow, FollowKey> entityInformation
+                = new MappingCassandraEntityInformation<Follow, FollowKey>(
+                (CassandraPersistentEntity<Follow>) persistentEntity, cassandraTemplate.getConverter());
         return new FollowRepositoryImpl(entityInformation, cassandraTemplate);
     }
 }
