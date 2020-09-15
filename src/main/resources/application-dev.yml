@@ -8,8 +8,8 @@ spring:
       port: 9042
 aws:
   s3:
-    accessKey: hieudeptr
-    secretKey: hieudeptr
+    accessKey: hieudeptrai
+    secretKey: hieudeptrai
     bucketName: notins
     endpointUrl: http://localhost:4572
     region: eu-west-1

@@ -1,6 +1,7 @@
 package go.nvhieucs.notins.model.applicationUser;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class ApplicationUser {
     @Id
     private UUID userId;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String username;
 
@@ -32,7 +33,7 @@ public class ApplicationUser {
     private Date lastLogin;
     private Date dateOfBirth;
 
-    public ApplicationUser( String name, String email, Date lastLogin, Date dateOfBirth) {
+    public ApplicationUser(String name, String email, Date lastLogin, Date dateOfBirth) {
         this.username = name;
         this.email = email;
         this.lastLogin = lastLogin;

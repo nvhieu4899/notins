@@ -11,6 +11,7 @@ import go.nvhieucs.notins.model.photo.PhotoByUserRepository;
 import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +47,7 @@ public class UserController {
 
 
     @GetMapping("newsfeed")
-    public List<PhotoByUser> newsfeed() {
+    public Slice<PhotoByUser> newsfeed() {
         List<ApplicationUser> alluser = userRepository.findAll();
         List<UUID> listUser = new ArrayList<>();
         for (ApplicationUser user : alluser) {
