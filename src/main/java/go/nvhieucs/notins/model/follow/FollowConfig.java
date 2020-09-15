@@ -12,7 +12,7 @@ import java.util.UUID;
 @Configuration
 public class FollowConfig {
     @Bean
-    public FollowRepository followRepository(final CassandraTemplate cassandraTemplate) {
+    public FollowRepositoryImpl followRepository(final CassandraTemplate cassandraTemplate) {
         final CassandraPersistentEntity<?> persistentEntity = cassandraTemplate.getConverter()
                 .getMappingContext().getRequiredPersistentEntity(Follow.class);
         final CassandraEntityInformation<Follow, FollowKey> entityInformation

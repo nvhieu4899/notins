@@ -7,6 +7,7 @@ import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.repository.query.CassandraEntityInformation;
 import org.springframework.data.cassandra.repository.support.SimpleCassandraRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, FollowKey> implements FollowRepository {
@@ -52,4 +53,5 @@ public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, Foll
         batchOperations.delete(byFollowingRepository.findById(new FollowerByFollowingKey(follow.getKey().getFollowingId(),
                 follow.getKey().getFollowerId())));
     }
+
 }
