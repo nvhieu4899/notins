@@ -47,13 +47,12 @@ public class UserController {
 
 
     @GetMapping("newsfeed")
-    public Slice<PhotoByUser> newsfeed() {
-        List<ApplicationUser> alluser = userRepository.findAll();
-        List<UUID> listUser = new ArrayList<>();
-        for (ApplicationUser user : alluser) {
-            listUser.add(user.getUserId());
-        }
-        return photoByUserRepository.findFirst100ByKeyUserIdIsInOrderByKeyCreationDateDesc(listUser, PageRequest.of(0, 20));
+    public Slice<PhotoByUser> newsfeed(Principal principal,
+                                       @RequestParam(value = "pageIndex", defaultValue = "1") Integer pageIndex,
+                                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        ApplicationUser currUser = userRepository.findOneByUsername(principal.getName());
+        List<UUID> followingIds = followRepository.findFollowingIdsByFollowerId(currUser.getUserId());
+        return photoByUserRepository.findFirst100ByKeyUserIdIsInOrderByKeyCreationDateDesc(followingIds, PageRequest.of(pageIndex - 1, pageSize));
     }
 
     @GetMapping("{username}")

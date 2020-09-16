@@ -10,4 +10,5 @@ import java.util.UUID;
 
 @NoRepositoryBean
 public interface FollowRepository extends CassandraRepository<Follow, FollowKey> {
+    List<UUID> findFollowingIdsByFollowerId(UUID followerId);
 }

@@ -1,5 +1,7 @@
 package go.nvhieucs.notins.model.follow;
 
+import com.datastax.oss.driver.api.querybuilder.Literal;
+import com.datastax.oss.driver.api.querybuilder.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.cassandra.core.CassandraBatchOperations;
 import org.springframework.data.cassandra.core.CassandraOperations;
@@ -9,6 +11,8 @@ import org.springframework.data.cassandra.repository.support.SimpleCassandraRepo
 
 import java.util.List;
 import java.util.UUID;
+
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.literal;
 
 public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, FollowKey> implements FollowRepository {
 
@@ -54,4 +58,12 @@ public class FollowRepositoryImpl extends SimpleCassandraRepository<Follow, Foll
                 follow.getKey().getFollowerId())));
     }
 
+    @Override
+    public List<UUID> findFollowingIdsByFollowerId(UUID followerId) {
+        return cassandraTemplate.select(
+                QueryBuilder
+                        .selectFrom("follow")
+                        .column("followingId")
+                        .whereColumn("followerId").isEqualTo(literal(followerId)).build().getQuery(), UUID.class);
+    }
 }

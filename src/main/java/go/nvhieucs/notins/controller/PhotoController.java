@@ -40,7 +40,8 @@ public class PhotoController {
     private PhotoByUserRepository photoByUserRepository;
 
     @PostMapping("")
-    public List<Photo> uploadPhoto(@RequestPart("photos") MultipartFile[] multipartFile, Principal principal) throws IOException {
+    public List<Photo> uploadPhoto(@RequestPart("photos") MultipartFile[] multipartFile,
+                                   Principal principal) throws IOException {
 
         ApplicationUser user = userRepository.findOneByUsername(principal.getName());
         List<Photo> photos = new ArrayList<>();
@@ -53,12 +54,14 @@ public class PhotoController {
     }
 
     @GetMapping("all")
-    public Slice<PhotoByUser> getAllPhoto(Principal principal) throws HttpResponseException {
+    public Slice<PhotoByUser> getAllPhoto(Principal principal,
+                                          @RequestParam(value = "pageIndex", defaultValue = "1") Integer pageIndex,
+                                          @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) throws HttpResponseException {
         if (principal == null) {
             throw new HttpResponseException(403, "Not authorized");
         }
         ApplicationUser user = userRepository.findOneByUsername(principal.getName());
-        return photoByUserRepository.findByKeyUserId(user.getUserId(), PageRequest.of(0, 20));
+        return photoByUserRepository.findByKeyUserId(user.getUserId(), PageRequest.of(pageIndex - 1, pageSize));
     }
 
 
