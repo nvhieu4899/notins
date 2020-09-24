@@ -9,8 +9,12 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends CassandraRepository<ApplicationUser, UUID> {
+    @AllowFiltering
     ApplicationUser findOneByUsernameOrEmail(String user);
+
     @AllowFiltering
     ApplicationUser findOneByUsername(String user);
-    ApplicationUser existsByUsername(String username);
+
+    @AllowFiltering
+    boolean existsByUsername(String username);
 }

@@ -38,7 +38,11 @@ public class UserController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("signup")
-    public ApplicationUser register(@RequestBody ApplicationUser user) {
+    public ApplicationUser register(@RequestBody ApplicationUser user) throws HttpResponseException {
+        boolean isUsernameExists = userRepository.existsByUsername(user.getUsername());
+        if (isUsernameExists) {
+            throw new HttpResponseException(401, "Username has been used");
+        }
         user.setUserId(Uuids.timeBased());
         user.setCreationDate(Calendar.getInstance().getTime());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
