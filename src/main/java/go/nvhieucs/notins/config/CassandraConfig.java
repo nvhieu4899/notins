@@ -15,8 +15,8 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 
 import java.nio.file.Path;
 
-@Profile("dev")
 @Configuration
+@Profile("dev")
 @EnableCassandraRepositories(basePackages = "go.nvhieucs.notins.model")
 public class CassandraConfig extends AbstractCassandraConfiguration {
 

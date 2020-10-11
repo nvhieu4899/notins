@@ -3,12 +3,14 @@ spring:
     cassandra:
       keyspace-name: notins
       schema-action: RECREATE_DROP_UNUSED
-      local-datacenter: datacenter1
-      contact-point: 127.0.0.1
-      port: 9042
+      local-datacenter: europe-west1
+      contact-point: a3972fdb-2e87-4d47-a89f-f156725ebc4a-europe-west1.db.astra.datastax.com
+      port: 30455
       username: nvhieu
       password: nguyenvanhieu
 
+datastax-java-driver:
+  basic.request.timeout: 5 seconds
 aws:
   s3:
     accessKey: hieudeptr

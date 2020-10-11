@@ -33,7 +33,6 @@ public class Photo {
     private Double userLat;
     private Double userLng;
 
-
     private Date creationDate;
 
     public Photo(String photoPath,UUID userId, Double photoLat, Double photoLng, Double userLat, Double userLng) {
